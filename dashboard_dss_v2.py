@@ -27,7 +27,7 @@ def home():
 
     st.write("""
     🔎 En este visor a partir de los ejes de desigualdad:
-    1. Pobresa por ingreso 
+    1. Pobreza por ingreso 
     2. Migración
     3. Escolaridad
     4. Hacimientamiento
