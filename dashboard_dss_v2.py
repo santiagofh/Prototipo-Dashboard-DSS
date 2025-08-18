@@ -30,7 +30,7 @@ def home():
     1. Pobreza por ingreso 
     2. Migración
     3. Escolaridad
-    4. Hacimientamiento
+    4. Hacinamiento
              
     Se analizan 12 indicadores clave de salud, priorizados por la SEREMI de Salud RM:
 
