@@ -18,6 +18,7 @@ def home():
         "https://www.paho.org/sites/default/files/styles/top_hero/public/2025-04/banner-dss2.jpg?h=5a93717a&itok=ycLYggyw",
         use_container_width =True
     )
+    st.caption("(Imagen original de la web de la OPS)[https://www.paho.org/es/temas/determinantes-sociales-salud]")
     st.write(
         """
         ## 📊 Monitoreo de inequidades en salud y determinantes sociales en la Región Metropolitana

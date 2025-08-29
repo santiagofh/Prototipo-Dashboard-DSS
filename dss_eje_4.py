@@ -85,6 +85,8 @@ st.image(
     "https://www.paho.org/sites/default/files/styles/top_hero/public/2025-04/banner-dss2.jpg?h=5a93717a&itok=ycLYggyw",
     use_container_width =True
 )
+
+
 # 🔹 Bloque introductorio que invita a explorar
 st.info(
     "🔍 **¿Existen diferencias en salud entre los sectores más favorecidos y los más vulnerables?**\n\n"
