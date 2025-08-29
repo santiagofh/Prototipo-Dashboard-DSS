@@ -28,7 +28,7 @@ def home():
     # ✨ Texto de introducción
     st.markdown(
         """
-        Este dashboard es parte de la cooperación técnica entre **OPS/OMS** y la **SEREMI de Salud de la Región Metropolitana**, 
+        Este dashboard es parte de la cooperación técnica entre **OPS** y la **SEREMI de Salud de la Región Metropolitana**, 
         en el marco de la *Iniciativa Especial para la Acción sobre los Determinantes Sociales de la Equidad en Salud*.
         """,
         unsafe_allow_html=True
