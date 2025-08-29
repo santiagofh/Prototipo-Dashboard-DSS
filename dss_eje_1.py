@@ -79,7 +79,7 @@ tabla_base = pd.DataFrame(rows_base)
 # %% [markdown]
 # --- VISUALIZACIÓN DE LA TABLA BASE ---
 st.warning("**Datos fake generados para prototipo**")
-
+st.image('IMG/seremi-100-años.png', width=300)
 st.title("🏥 Monitor de Desigualdades en Salud - Región Metropolitana")
 st.image(
     "https://www.paho.org/sites/default/files/styles/top_hero/public/2025-04/banner-dss2.jpg?h=5a93717a&itok=ycLYggyw",
