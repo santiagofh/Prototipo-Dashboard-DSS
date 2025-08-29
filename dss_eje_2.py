@@ -9,7 +9,6 @@ import random
 
 # %% [markdown]
 # --- CONFIGURACIÓN GENERAL ---
-st.set_page_config(layout="wide")
 eje_desigualdad = 'Migración'
 years = [2017, 2022]
 quintiles = ['Q1', 'Q2', 'Q3', 'Q4', 'Q5']

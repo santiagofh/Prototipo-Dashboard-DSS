@@ -7,6 +7,7 @@ import plotly.express as px
 # %%
 def home():
     # 🎨 Encabezado con estilo
+    st.image('IMG/seremi-100-años.png', width=300)
     st.write(
         """
         # 🏥 Dashboard de Determinantes Sociales de Salud (DSS)
