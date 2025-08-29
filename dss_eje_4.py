@@ -10,13 +10,9 @@ import random
 # %% [markdown]
 # --- CONFIGURACIÓN GENERAL ---
 st.set_page_config(layout="wide")
-eje_desigualdad = 'Eje de desigualdad 4'
+eje_desigualdad = 'Hacinamiento'
 years = [2017, 2022]
 quintiles = ['Q1', 'Q2', 'Q3', 'Q4', 'Q5']
-
-st.title("🏥 Monitor de Desigualdades en Salud - Región Metropolitana")
-st.warning("**Datos fake generados para prototipo**")
-st.warning("Los resultados se presentan solo a nivel de quintil, ya que el tamaño muestral no permite desagregación comunal válida.")
 
 # %% [markdown]
 # --- SELECCIÓN DEL INDICADOR ---
@@ -83,25 +79,61 @@ tabla_base = pd.DataFrame(rows_base)
 
 # %% [markdown]
 # --- VISUALIZACIÓN DE LA TABLA BASE ---
+st.warning("**Datos fake generados para prototipo**")
+
+st.title("🏥 Monitor de Desigualdades en Salud - Región Metropolitana")
+st.image(
+    "https://www.paho.org/sites/default/files/styles/top_hero/public/2025-04/banner-dss2.jpg?h=5a93717a&itok=ycLYggyw",
+    use_container_width =True
+)
+# 🔹 Bloque introductorio que invita a explorar
+st.info(
+    "🔍 **¿Existen diferencias en salud entre los sectores más favorecidos y los más vulnerables?**\n\n"
+    "Este monitor permite explorar cómo cambian los indicadores de salud según quintiles socioeconómicos "
+    "y a lo largo del tiempo. La invitación es a mirar los datos y preguntarse: "
+    "**¿qué tan justa es la distribución de la salud en la región?**"
+)
+
+
+
 st.write(f"## 📊 Tabla Base por Quintil - {eje_desigualdad} ({indicador_salud})")
+# 🔹 Explicación breve de qué es un quintil (solo si el usuario expande)
+st.write(
+    """
+    Esta tabla muestra la **distribución del indicador de salud seleccionado** en la **Región Metropolitana**, 
+    organizada por **quintiles socioeconómicos** según el eje de desigualdad elegido.
+
+    - Cada fila corresponde a un **quintil (Q1 a Q5)**, representando el **20% de la población**, 
+      desde el más desfavorecido (Q1) hasta el más favorecido (Q5).
+    - Se incluyen las **comunas de cada quintil**, el **número de casos o eventos**, la **población total**, 
+      la **tasa o proporción del indicador** y su **intervalo de confianza (IC 95%)**.
+    - Permite **comparar cómo varía el indicador entre los sectores más vulnerables y los más favorecidos**, 
+      facilitando la identificación de **brechas en salud**.
+    """
+)
+
+with st.expander("  ## ℹ️ ¿Qué es un quintil?"):
+    st.markdown(
+        "Un **quintil** divide a la población en 5 grupos de igual tamaño según un criterio (por ejemplo, nivel de ingreso). \n\n"
+        "- **Quintil I**: 20 % más vulnerable\n"
+        "- **Quintil V**: 20 % más favorecido\n\n"
+        "De esta forma se pueden comparar inequidades entre los grupos."
+    )
+    st.video("https://www.youtube.com/watch?v=0NNfYDHmXVA")
+with st.expander("ℹ️ ¿Qué es el Intervalo de Confianza (IC 95%)?"):
+    st.markdown(
+        "El **intervalo de confianza (IC 95%)** indica el rango dentro del cual se espera que se encuentre "
+        "el valor verdadero del indicador con un 95% de certeza.\n\n"
+        "- Ayuda a comprender la **precisión de la estimación**.\n"
+        "- Intervalos más estrechos indican **mayor precisión**, mientras que intervalos más amplios reflejan **incertidumbre mayor**."    
+    )
+    st.video("https://www.youtube.com/watch?v=Xx-AB-rLzfg&ab_channel=MaldetarroAlwaysthinking")
 st.dataframe(tabla_base, use_container_width=True)
 
-# %% [markdown]
-# --- Conceptos ---
-st.markdown("""
-### 📖 Conceptos
-- **IRD (Índice Relativo de Desigualdad):**  
-  Razón teórica entre el extremo más desfavorecido (0%) y más favorecido (100%) de la distribución poblacional **ordenada por el eje de desigualdad**. 
-    - \>1: Desigualdad perjudica a grupos desfavorecidos  
-    - <1: Desigualdad beneficia a grupos desfavorecidos  
-  *- Calculado mediante regresión de Poisson sobre rangos poblacionales acumulados.*
-- **IAD (Índice Absoluto de Desigualdad):**  
-  Diferencia absoluta teórica en tasas entre extremos de la gradiente social, **ajustada por la distribución poblacional**. 
-  - Representa la pendiente de la regresión (casos/100k hab. por unidad de rango).
-  - Ejemplo: IAD=10 significa 10 casos adicionales por 100k hab. por cada 100% de desventaja acumulada.
-- Una **brecha creciente** entre quintiles refleja empeoramiento de la equidad en salud, 
-  pero debe confirmarse con IRD/IAD para considerar toda la distribución.
-""")
+
+
+
+
 
 # %% [markdown]
 # --- CÁLCULO DE BRECHAS Y DESIGUALDAD ---
@@ -164,10 +196,37 @@ for variable in ['Brecha Absoluta', 'IRD']:
 
 st.dataframe(styled, use_container_width=True)
 
-st.markdown("""  
-🟥 **Brecha Absoluta** destacada en rojo indica una diferencia mayor a 10 casos por 100,000 habitantes, lo que sugiere una alta desigualdad.<br>  
-🟩 **IRD** en verde señala valores menores a 2, lo que indica una menor desigualdad relativa entre quintiles.  
-""", unsafe_allow_html=True)
+st.info("""
+🟥 **Brecha Absoluta** destacada en rojo indica una diferencia mayor a 10 casos por 100,000 habitantes, lo que sugiere una alta desigualdad.  
+🟩 **IRD** en verde señala valores menores a 2, lo que indica una menor desigualdad relativa entre quintiles.
+""")
+
+
+# %% [markdown]
+# --- Conceptos ---
+
+
+with st.expander("📖 IRD (Índice Relativo de Desigualdad)"):
+    st.markdown("""
+    Razón teórica entre el extremo más desfavorecido (0%) y más favorecido (100%) de la distribución poblacional **ordenada por el eje de desigualdad**.  
+    - >1: Desigualdad perjudica a grupos desfavorecidos  
+    - <1: Desigualdad beneficia a grupos desfavorecidos  
+    *- Calculado mediante regresión de Poisson sobre rangos poblacionales acumulados.*
+    """)
+
+with st.expander("📖 IAD (Índice Absoluto de Desigualdad)"):
+    st.markdown("""
+    Diferencia absoluta teórica en tasas entre extremos de la gradiente social, **ajustada por la distribución poblacional**.  
+    - Representa la pendiente de la regresión (casos/100k hab. por unidad de rango).  
+    - Ejemplo: IAD=10 significa 10 casos adicionales por 100k hab. por cada 100% de desventaja acumulada.
+    """)
+
+with st.expander("📖 Brecha creciente entre quintiles"):
+    st.markdown("""
+    Una **brecha creciente** entre quintiles refleja empeoramiento de la equidad en salud, 
+    pero debe confirmarse con IRD/IAD para considerar toda la distribución.
+    """)
+
 # %% [markdown]
 # --- INTERPRETACIÓN DINÁMICA ---
 st.write("### 📅 Selección de año para interpretar los resultados")
